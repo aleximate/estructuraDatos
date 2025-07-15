@@ -101,6 +101,7 @@ def eliminarDatosInterfazGeneral(archivo,nameExcel):
         consultas.eliminar_datos(int(id),'ID_MATERIAL',pathCatalogoRepuestos)
     elif archivo == pathStockRepuestos:
         consultas.eliminar_datos(int(id),'ID_MATERIAL',pathStockRepuestos)
+
 def ingresarItemPrecioStockRepuestos(archivo,nameExcel):
     print("\n" + "=" * 50)
     print(" 📁 INSERTAR DATOS A "+nameExcel.center(50, '='))
@@ -132,11 +133,45 @@ def ingresarItemCatalogoRepuestos(archivo,nameExcel):
     nuevos_datos =  pd.DataFrame([[consultas.obtenerID('ID_MATERIAL',archivo), descripcionMaterial,proveedorMaterial,numeroProveedor,fabricante,numeroFabricante,ubicacion]],columns=['ID_MATERIAL','DESCRIPCION_MATERIAL','PROVEEDOR_MATERIAL','NP_PROVEEDOR','FABRICANTE_COMPONENTE','NP_FABRICANTE','UBICACION'])
     consultas.insertar_datos(nuevos_datos, archivo)
     print("==========SE INGRESO CORRECTAMETE LOS DATOS")
-'''
+
 def actualizarItemPrecioStockRepuestos(archivo,nameExcel):
+    print("\n" + "=" * 50)
+    print(" 📁 ACTUALIZAR DATOS - "+nameExcel.center(50, '='))
+    print("=" * 50)
+    id = input("\nEscriba el id: ")
+    consultas.consultar_datos(int(id), 'ID_MATERIAL', pathPrecioRepuestos)
+    precio = input("\nEscriba el precio: ")
+    nuevos_datos = pd.DataFrame([[id, float(precio)]],columns=['ID_MATERIAL','PRECIO'])
+    consultas.actualizar_datos(int(id),'ID_MATERIAL',nuevos_datos,archivo)
+
 def actualizarItemStockRepuestos(archivo,nameExcel):
+    print("\n" + "=" * 50)
+    print(" 📁 ACTUALIZAR DATOS - "+nameExcel.center(50, '='))
+    print("=" * 50)
+    id = input("\nEscriba el id: ")
+    consultas.consultar_datos(int(id), 'ID_MATERIAL', pathStockRepuestos)
+    material = input("\nEscriba material: ")
+    stock = input("\nEscriba el stock: ")
+    unidad = input("\nEscriba la unidad: ")
+    nuevos_datos = pd.DataFrame([[id,material,float(stock),unidad]],columns=['ID_MATERIAL','TEXTO_MATERIAL','STOCK','UNIDAD'])
+    consultas.actualizar_datos(int(id),'ID_MATERIAL',nuevos_datos, archivo)
+
 def actualizarItemCatalogoRepuestos(archivo,nameExcel):
-'''
+    print("\n" + "=" * 50)
+    print(" 📁 ACTUALIZAR DATOS - "+nameExcel.center(50, '='))
+    print("=" * 50)
+    id = input("\nEscriba el id: ")
+    consultas.consultar_datos(int(id), 'ID_MATERIAL', pathCatalogoRepuestos)
+    descripcionMaterial = input("\nEscriba el precio: ")
+    proveedorMaterial = input("\nEscriba el proveedor del material: ")
+    numeroProveedor = input("\nEscriba el numero de proveedor: ")
+    fabricante = input("\nEscriba el fabricante componente: ")
+    numeroFabricante = input("\nEscriba el numero de fabricante: ")
+    ubicacion =  input("\nEscriba la ubicacion: ")
+    nuevos_datos =  pd.DataFrame([[id, descripcionMaterial,proveedorMaterial,numeroProveedor,fabricante,numeroFabricante,ubicacion]],columns=['ID_MATERIAL','DESCRIPCION_MATERIAL','PROVEEDOR_MATERIAL','NP_PROVEEDOR','FABRICANTE_COMPONENTE','NP_FABRICANTE','UBICACION'])
+    consultas.actualizar_datos(int(id), 'ID_MATERIAL', nuevos_datos, archivo)
+
+
 
 
 def accionesCRUDPrecioStockRepuestos(opcionCRUD):
@@ -144,6 +179,8 @@ def accionesCRUDPrecioStockRepuestos(opcionCRUD):
         consultarDatosInterfazGeneral(pathPrecioRepuestos, "PRECIO STOCK DE REPUESTOS")
     elif opcionCRUD == "2":
         ingresarItemPrecioStockRepuestos(pathPrecioRepuestos, "PRECIO STOCK DE REPUESTOS")
+    elif opcionCRUD == "3":
+        actualizarItemPrecioStockRepuestos(pathPrecioRepuestos, "PRECIO STOCK DE REPUESTOS")
     elif opcionCRUD == "4":
         eliminarDatosInterfazGeneral(pathPrecioRepuestos,"PRECIO STOCK DE REPUESTOS")
 
@@ -152,6 +189,8 @@ def accionesCRUDStockRepuestos(opcionCRUD):
         consultarDatosInterfazGeneral(pathStockRepuestos,"STOCK DE REPUESTOS")
     elif opcionCRUD == "2":
         ingresarItemStockRepuestos(pathPrecioRepuestos, "STOCK DE REPUESTOS")
+    elif opcionCRUD == "3":
+        actualizarItemStockRepuestos(pathStockRepuestos, "STOCK DE REPUESTOS")
     elif opcionCRUD == "4":
         eliminarDatosInterfazGeneral(pathStockRepuestos,"STOCK DE REPUESTOS")
 
@@ -159,7 +198,9 @@ def accionesCRUDCatalogoRepuestos(opcionCRUD):
     if opcionCRUD == "1":
         consultarDatosInterfazGeneral(pathCatalogoRepuestos,"CATALOGO DE REPUESTOS")
     elif opcionCRUD == "2":
-        ingresarItemCatalogoRepuestos(pathPrecioRepuestos, "CATALOGO DE REPUESTOS")
+        ingresarItemCatalogoRepuestos(pathCatalogoRepuestos, "CATALOGO DE REPUESTOS")
+    elif opcionCRUD == "3":
+        actualizarItemCatalogoRepuestos(pathCatalogoRepuestos, "CATALOGO DE REPUESTOS")
     elif opcionCRUD == "4":
         eliminarDatosInterfazGeneral(pathCatalogoRepuestos,"CATALOGO DE REPUESTOS")
 
